@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "http://VeronicaNartatez.github.io/SEG3125_A2_Service_Site",
+  "homepage": "https://veronicanartatez.github.io/SEG3125_A3_MemoryGame/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
