@@ -1,0 +1,92 @@
+.title-container{
+    display: flex;
+    position: relative;
+    margin-top: -20em;
+}
+
+h1{
+    font-family: Monaco, Lucida Console, Garamond;
+}
+
+.setting-title-box{
+    display: flex;
+    justify-content: left;
+}
+
+.setting-title-box p {
+    font-weight: 10px;
+}
+
+.diff-btn-container{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.theme-btn-container{
+    display: flex;
+    gap: 5px;
+}
+
+#star-pic{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    object-fit: contain;
+}
+
+.starcard{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-diff{
+    border-radius: 10px;
+}
+
+#easy{
+    background-color: green;
+    border-color: rgb(29, 86, 29);
+    border-width: 2px;
+}
+
+#medium{
+    background-color: orange;
+    border-color: rgb(190, 141, 51);
+    border-width: 2px;
+}
+
+#hard{
+    background-color: red;
+    border-color: rgb(134, 25, 25);
+    border-width: 2px;
+}
+
+
+.btn-theme{
+    border-radius: 10px;
+    width: 50%;
+}
+
+#space{
+    background-color: #3f5277;
+    border-color: #27344d;
+    border-width: 2px;
+}
+
+#plants{
+    background-color: #954535;
+    border-color: #502017;
+    border-width: 2px;
+}
+
+#animals{
+    background-color: #495e35;
+    border-color: #354626;
+    border-width: 2px;
+}
+
+.card{
+    border: ;
+}
+

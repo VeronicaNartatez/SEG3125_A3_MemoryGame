@@ -1,10 +1,15 @@
+import './memorygame.css'
+import starPic from './assets/star.png';
+
 export default function MemoryGame() {
 
     return(
         <>
 
             {/* title of page */}
-            <h1>Memory Match-Up!</h1>
+            <div className="title-container">
+                <h1>Memory Match-Up!</h1>
+            </div>
 
 
             <div className="setting-title-box">
@@ -14,42 +19,48 @@ export default function MemoryGame() {
             {/* bar with settings. from bootstrap */}
             <div className="settings-box-container">    
                 <div class="card">
-                    <div class="card-body">
-                        
-                        <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <ul className="nav nav-tabs" id="myTab" role="tablist">
 
-                            {/*difficulty setting*/}
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="pills-diff-tab" data-bs-toggle="pill" data-bs-target="#pills-diff" type="button" role="tab" aria-controls="pills-diff" aria-selected="false">Difficulty</button>
-                            </li>
+                        {/* difficulty tab */}
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link active" id="diff-tab" data-bs-toggle="tab" data-bs-target="#diff-tab-pane" type="button" role="tab" aria-controls="diff-tab-pane" aria-selected="true">Difficulty</button>
+                        </li>
 
-                            {/*theme setting*/}
-                            <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="pills-theme-tab" data-bs-toggle="pill" data-bs-target="#pills-theme" type="button" role="tab" aria-controls="pills-theme" aria-selected="false">Profile</button>
-                            </li>
-                        </ul>
+                        {/* theme tab */}
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link" id="theme-tab" data-bs-toggle="tab" data-bs-target="#theme-tab-pane" type="button" role="tab" aria-controls="theme-tab-pane" aria-selected="false">Themes</button>
+                        </li>
+                    </ul>
 
-                        {/* what each tab will present */}
-                        <div className="tab-content" id="pills-tabContent">
+                    {/* what each tab will present */}
+                    <div className="tab-content" id="myTabContent">
 
-                            {/* difficulty tab */}
-                            <div className="tab-pane fade" id="pills-diff" role="tabpanel" aria-labelledby="pills-diff-tab" tabindex="0">
-                                <button type="button" className="btn btn-primary">Easy</button>
-                                <button type="button" className="btn btn-primary">Medium</button>
-                                <button type="button" className="btn btn-primary">Hard</button>
+                         {/* difficulty tab content*/}
+                        <div className="tab-pane fade show active" id="diff-tab-pane" role="tabpanel" aria-labelledby="diff-tab" tabindex="0">
+                            <div className="diff-btn-container">
+                                <button type="button" class="btn-diff" id='easy'>Easy</button>
+                                <button type="button" class="btn-diff" id='medium'>Medium</button>
+                                <button type="button" class="btn-diff" id='hard'>Hard</button>
                             </div>
-                            
-                            {/* theme tab */}
-                            <div className="tab-pane fade" id="pills-theme" role="tabpanel" aria-labelledby="pills-theme-tab" tabindex="0">
-                                <button type="button" className="btn btn-primary">image1</button>
-                                <button type="button" className="btn btn-primary">image2</button>
-                                <button type="button" className="btn btn-primary">image3</button>
-                            </div>
-
                         </div>
+
+                        {/* theme tab content*/}
+                        <div className="tab-pane fade" id="theme-tab-pane" role="tabpanel" aria-labelledby="theme-tab" tabindex="0">
+                            <div className="theme-btn-container">
+                                <button type="button" class="btn-theme" id='space'>
+                                    <div className="starcard">
+                                        <img id='star-pic' src={starPic} alt="A pixel picture of a star." />
+                                    </div>
+                                </button>
+                                <button type="button" class="btn-theme" id='plants'>...</button>
+                                <button type="button" class="btn-theme" id='animals'>...</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
 
         </>
     )
