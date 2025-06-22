@@ -4,7 +4,7 @@ import './memorygame.css';
 // --- Themes ---
 const themes = {
     space: {
-        emojis: ['🚀', '🪐', '👽', '🌌', '⭐️', '☄️', '🛰️', '🛸', '🌠', '🪄', '🧑‍🚀', '🌙'],
+        emojis: ['🚀', '🪐', '👽', '🌌', '⭐️', '☄️', '🛰️', '🛸', '🌠', '�', '🧑‍🚀', '🌙'],
         color: 'bg-indigo-500'
     },
     plants: {
@@ -17,7 +17,7 @@ const themes = {
     }
 };
 
-// Difficulties
+// --- Difficulties ---
 const difficulties = {
     easy: { pairs: 4, cols: 4, rows: 2 },
     medium: { pairs: 8, cols: 4, rows: 4 },
@@ -32,7 +32,7 @@ export default function MemoryGame() {
     const [matched, setMatched] = useState([]);
     const [isChecking, setIsChecking] = useState(false);
 
-    // Function to shuffle an array
+    // --- Function to shuffle an array ---
     const shuffle = (arr) => {
         const a = [...arr];
         for (let i = a.length - 1; i > 0; i--) {
@@ -42,7 +42,7 @@ export default function MemoryGame() {
         return a;
     };
 
-    // Function to generate cards
+    // --- Function to generate cards and reset the game ---
     const generateCards = () => {
         const { emojis } = themes[theme];
         const { pairs } = difficulties[difficulty];
@@ -54,12 +54,12 @@ export default function MemoryGame() {
         setMatched([]);
     };
     
-    //Generate cards on theme or difficulty change
+    // --- Generate cards on theme or difficulty change ---
     useEffect(() => {
         generateCards();
     }, [theme, difficulty]);
 
-    //Logic to check for matches
+    // --- Logic to check for matches ---
     useEffect(() => {
         if (flipped.length === 2) {
             setIsChecking(true);
@@ -77,7 +77,7 @@ export default function MemoryGame() {
         }
     }, [flipped, cards]);
 
-    //Card flip handler
+    // --- Card flip handler ---
     const handleFlip = (index) => {
         if (isChecking || flipped.includes(index) || matched.includes(cards[index].emoji)) {
             return;
@@ -85,7 +85,7 @@ export default function MemoryGame() {
         setFlipped(prev => [...prev, index]);
     };
 
-    const isGameWon = matched.length === difficulties[difficulty].pairs;
+    const isGameWon = matched.length === difficulties[difficulty].pairs && cards.length > 0;
 
     return (
         <div className="container-fluid">
@@ -127,7 +127,18 @@ export default function MemoryGame() {
                 </div>
             </div>
             
-            {isGameWon && <div className="win-message">You Won!</div>}
+            {/* --- Win Condition Modal --- */}
+            {isGameWon && (
+                 <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>You Win!</h2>
+                        <p>Congratulations, you matched all the cards!</p>
+                        <button className="play-again-btn" onClick={generateCards}>
+                            Play Again
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <div
                 className="card-grid"
