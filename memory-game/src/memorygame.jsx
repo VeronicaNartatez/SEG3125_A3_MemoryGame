@@ -91,7 +91,8 @@ export default function MemoryGame(){
         const renderCard = flipped.includes(index) || matched.includes(index);
 
         return(
-            //html
+            
+            
         )
     }
 }
