@@ -1,3 +1,9 @@
+html body{
+    background-color: #add8e6;
+    margin: 0;
+    padding: 0;
+}
+
 .title-container{
     display: flex;
     position: relative;
@@ -35,6 +41,30 @@ h1{
     object-fit: contain;
 }
 
+#choco-pic{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    object-fit: contain;
+}
+
+#plant-pic{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    object-fit: contain;
+}
+
+.plant-theme{
+    display: flex;
+    justify-content: center;
+}
+
+.food-theme{
+    display: flex;
+    justify-content: center;
+}
+
 .starcard{
     display: flex;
     justify-content: center;
@@ -51,8 +81,8 @@ h1{
 }
 
 #medium{
-    background-color: orange;
-    border-color: rgb(190, 141, 51);
+    background-color: rgb(255, 119, 0);
+    border-color: rgb(171, 90, 20);
     border-width: 2px;
 }
 
@@ -74,16 +104,29 @@ h1{
     border-width: 2px;
 }
 
-#plants{
-    background-color: #954535;
-    border-color: #502017;
+#food{
+    background-color: #FF8DA1;
+    border-color: #8d4855;
     border-width: 2px;
 }
 
-#animals{
+#plants{
     background-color: #495e35;
     border-color: #354626;
     border-width: 2px;
 }
+
+#restart-btn{
+    border-width: 2px;
+    border-radius: 4px;
+    background-color: #54b0cf;
+    border-color: #336d80;
+}
+
+.restart-container{
+    position: relative;
+    top: 10px;
+}
+
 
 
