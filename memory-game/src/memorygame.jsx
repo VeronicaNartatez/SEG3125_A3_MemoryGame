@@ -1,154 +1,177 @@
 import { useState, useEffect } from "react";
 import './memorygame.css';
 
-// --- Themes ---
-const themes = {
-    space: {
-        emojis: ['🚀', '🪐', '👽', '🌌', '⭐️', '☄️', '🛰️', '🛸', '🌠', '🪄', '🧑‍🚀', '🌙'],
-        color: 'bg-indigo-500'
-    },
-    plants: {
-        emojis: ['🌿', '🌵', '🌷', '🍃', '🍄', '🌹', '🌴', '🌳', '🌻', '🌼', '🪴', '🌺'],
-        color: 'bg-green-500'
-    },
-    candy: {
-        emojis: ['🍬', '🍫', '🍭', '🍩', '🧁', '🍪', '🍰', '🥧', '🍮', '🍯', '🍡', '🍨'],
-        color: 'bg-pink-500'
-    }
-};
-
-// Difficulties
+//diff levels of game
 const difficulties = {
     easy: { pairs: 4, cols: 4, rows: 2 },
     medium: { pairs: 8, cols: 4, rows: 4 },
     hard: { pairs: 12, cols: 6, rows: 4 }
 };
 
+//the themes of game
+const themes = {
+    space: {
+        emojis: ['🚀', '🪐', '👽', '🌌', '⭐️', '☄️', '🛰️', '🛸', '🌠', '🪄', '🧑‍🚀', '🌙'],
+        color: 'space-card'
+    },
+    plants: {
+        emojis: ['🌿', '🌵', '🌷', '🍃', '🍄', '🌹', '🌴', '🌳', '🌻', '🌼', '🪴', '🌺'],
+        color: 'plant-card'
+    },
+    candy: {
+        emojis: ['🍬', '🍫', '🍭', '🍩', '🧁', '🍪', '🍰', '🥧', '🍮', '🍯', '🍡', '🍨'],
+        color: 'food-card'
+    }
+};
+
+//default settings to game
 export default function MemoryGame() {
     const [theme, setTheme] = useState('space');
     const [difficulty, setDifficulty] = useState('easy');
     const [cards, setCards] = useState([]);
     const [flipped, setFlipped] = useState([]);
     const [matched, setMatched] = useState([]);
+
+    const [showWin, setShowWin] = useState(false);
     const [isChecking, setIsChecking] = useState(false);
 
-    // Function to shuffle an array
-    const shuffle = (arr) => {
-        const a = [...arr];
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]]; // Corrected shuffle logic
-        }
-        return a;
-    };
+    
 
-    // Function to generate cards
-    const generateCards = () => {
-        const { emojis } = themes[theme];
-        const { pairs } = difficulties[difficulty];
-        const selected = emojis.slice(0, pairs);
-        const shuffled = shuffle([...selected, ...selected]);
+    // generates the cards
+    function generateCards() {
+        const {emojis}=themes[theme];
+        const {pairs}= difficulties[difficulty];
+        const selected=emojis.slice(0, pairs);
+        const shuffled=shuffle([...selected, ...selected]);
 
         setCards(shuffled.map((emoji, i) => ({ id: i, emoji, isFlipped: false })));
         setFlipped([]);
         setMatched([]);
+        setShowWin(false);
     };
-    
-    //Generate cards on theme or difficulty change
+
+    // shuffles the cards
+    function shuffle(arr) {
+        const a=[...arr];
+        for (let i=a.length-1; i>0;i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i],a[j]]=[a[j],a[i]]; 
+        }
+        return a;
+    };
+
+    //display the card
+    function matchCheck(index) {
+        if(flipped.length===2 || flipped.includes(index) || matched.includes(index)) {
+            return;
+        }
+
+        const newFlipped=[...flipped,index];
+        setFlipped(newFlipped);
+
+        if(newFlipped.length===2) {
+            const [i1,i2]=newFlipped;
+            
+            //make a new array if the cards match and add the
+            if(cards[i1].emoji===cards[i2].emoji){
+                setMatched([...matched,i1,i2]);
+            }
+            setTimeout(() => setFlipped([]),1000)
+        }
+    }
+
+    //generate cards based on theme or difficulty change
     useEffect(() => {
         generateCards();
     }, [theme, difficulty]);
 
-    //Logic to check for matches
     useEffect(() => {
-        if (flipped.length === 2) {
-            setIsChecking(true);
-            const [index1, index2] = flipped;
-            if (cards[index1].emoji === cards[index2].emoji) {
-                setMatched(prev => [...prev, cards[index1].emoji]);
-                setFlipped([]);
-                setIsChecking(false);
-            } else {
-                setTimeout(() => {
-                    setFlipped([]);
-                    setIsChecking(false);
-                }, 1000);
-            }
+        const totalCards = difficulties[difficulty].pairs * 2;
+        if (matched.length === totalCards) {
+            setTimeout(() => {
+                setShowWin(true);
+            }, 500);
         }
-    }, [flipped, cards]);
+    }, [matched, difficulty]);
+    
 
-    //Card flip handler
-    const handleFlip = (index) => {
-        if (isChecking || flipped.includes(index) || matched.includes(cards[index].emoji)) {
-            return;
-        }
-        setFlipped(prev => [...prev, index]);
-    };
+    function renderedCard(card, index){
+        const isFlipped=flipped.includes(index) || matched.includes(index);
+        return (
+            
+            <div className="card-wrapper" key={card.id} onClick={() => matchCheck(index)}>
+                <div className={`card-inner ${isFlipped ? "flipped" : ""}`}>
 
-    const isGameWon = matched.length === difficulties[difficulty].pairs;
+                    <div className={`card-front ${themes[theme].color}`}>
+                        ?
+                    </div>
+
+                    <div className="card-back">
+                        {card.emoji}
+                    </div>
+                </div>
+          </div>
+        );
+    }
 
     return (
-        <div className="container-fluid">
+        <div className="body">
             <div className="title-container"><h1>Memory Match-Up!</h1></div>
-            <div className="setting-title-box"><p>Game Settings:</p></div>
-
             <div className="settings-box-container">
-                <div className="settings-card">
-                    <div className="settings-section">
-                        <h5>Difficulty</h5>
-                        <div className="btn-group" role="group">
-                            {Object.keys(difficulties).map(level => (
-                                <button
-                                    key={level}
-                                    type="button"
-                                    className={`btn btn-diff ${difficulty === level ? 'selected' : ''}`}
-                                    onClick={() => setDifficulty(level)}
-                                >
-                                    {level.charAt(0).toUpperCase() + level.slice(1)}
-                                </button>
-                            ))}
-                        </div>
+                <div className="card">
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
+                            <button className="nav-link active">Difficulty and Theme Settings</button>
+                        </li>
+                    </ul>
+                    <div className="diff-btn-container" >
+                        {Object.keys(difficulties).map(level => (
+                            <button
+                                key={level}
+                                className={`btn-diff ${level}-btn ${difficulty === level ? 'selected' : ''}`}
+                                onClick={() => setDifficulty(level)}
+                            >
+                                {level.charAt(0).toUpperCase() + level.slice(1)}
+                            </button>
+                        ))}
                     </div>
-                     <div className="settings-section">
-                        <h5>Themes</h5>
-                        <div className="btn-group" role="group">
-                            {Object.keys(themes).map(t => (
-                                <button
-                                    key={t}
-                                    type="button"
-                                    className={`btn btn-theme ${theme === t ? 'selected' : ''}`}
-                                    onClick={() => setTheme(t)}
-                                >
-                                    {t.charAt(0).toUpperCase() + t.slice(1)}
-                                </button>
-                            ))}
-                        </div>
+                    <div className="theme-btn-container">
+                        {Object.keys(themes).map(t => (
+                            <button
+                                key={t}
+                                className={`btn-theme ${t}-btn ${theme === t ? 'selected' : ''}`}
+                                onClick={() => setTheme(t)}
+                            >
+                                {t}
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
-            
-            {isGameWon && <div className="win-message">You Won!</div>}
+
+            <div className="reset-btn-container">
+                    <button className="reset-btn" onClick={generateCards}>Reset Game</button>
+            </div>
 
             <div
                 className="card-grid"
                 style={{
                     gridTemplateColumns: `repeat(${difficulties[difficulty].cols}, 1fr)`,
+                    gridTemplateRows: `repeat(${difficulties[difficulty].rows}, 1fr)`,
                 }}
             >
-                {cards.map((card, index) => {
-                     const isFlipped = flipped.includes(index) || matched.includes(card.emoji);
-                     return (
-                        <div className="card-wrapper" key={index} onClick={() => handleFlip(index)}>
-                            <div className={`card-inner ${isFlipped ? 'flipped' : ''}`}>
-                                <div className="card-front">?</div>
-                                <div className={`card-back ${themes[theme].color}`}>
-                                    {card.emoji}
-                                </div>
-                            </div>
-                        </div>
-                     );
-                })}
+                {cards.map((card, index) => renderedCard(card, index))}
             </div>
+
+            {/* win window */}
+            {showWin && (
+                <div className="win-popup">
+                    <div className="popup-content">
+                        <h2>You Won!</h2>
+                        <button onClick={() => setShowWin(false)}>Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
