@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import './memorygame.css';
 
+
 //diff levels of game
 const difficulties = {
     easy: { pairs: 4, cols: 4, rows: 2 },
@@ -36,7 +37,6 @@ export default function MemoryGame() {
     const [isChecking, setIsChecking] = useState(false);
 
     
-
     // generates the cards
     function generateCards() {
         const {emojis}=themes[theme];
@@ -84,6 +84,7 @@ export default function MemoryGame() {
     useEffect(() => {
         generateCards();
     }, [theme, difficulty]);
+
 
     useEffect(() => {
         const totalCards = difficulties[difficulty].pairs * 2;
@@ -148,6 +149,7 @@ export default function MemoryGame() {
                     </div>
                 </div>
             </div>
+
 
             <div className="reset-btn-container">
                     <button className="reset-btn" onClick={generateCards}>Reset Game</button>
