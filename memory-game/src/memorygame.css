@@ -104,9 +104,14 @@ h1{
     border-width: 2px;
 }
 
+
 #food{
     background-color: #FF8DA1;
     border-color: #8d4855;
+
+#plants{
+    background-color: #d36075;
+    border-color: #834954;
     border-width: 2px;
 }
 
