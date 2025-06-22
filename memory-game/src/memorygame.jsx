@@ -1,5 +1,7 @@
 import './memorygame.css'
 import starPic from './assets/star.png';
+import plantPic from './assets/flower.png';
+import foodPic from './assets/chocolate.png';
 
 export default function MemoryGame() {
 
@@ -47,13 +49,24 @@ export default function MemoryGame() {
                         {/* theme tab content*/}
                         <div className="tab-pane fade" id="theme-tab-pane" role="tabpanel" aria-labelledby="theme-tab" tabindex="0">
                             <div className="theme-btn-container">
+
                                 <button type="button" class="btn-theme" id='space'>
                                     <div className="starcard">
-                                        <img id='star-pic' src={starPic} alt="A pixel picture of a star." />
+                                        <img id='star-pic' src={starPic} alt="Star Emoji"/>
                                     </div>
                                 </button>
-                                <button type="button" class="btn-theme" id='plants'>...</button>
-                                <button type="button" class="btn-theme" id='animals'>...</button>
+
+                                <button type="button" class="btn-theme" id='plants'>
+                                    <div className="plantcard">
+                                        <img id='plant-pic' src={plantPic} alt='Flower Emoji'/>
+                                    </div>
+                                </button>
+                                
+                                <button type="button" class="btn-theme" id='food'>
+                                    <div className="foodcard">
+                                        <img id='food-pic' src={foodPic} alt="Chocolate Emoji"/>
+                                    </div>
+                                </button>
                             </div>
                         </div>
 

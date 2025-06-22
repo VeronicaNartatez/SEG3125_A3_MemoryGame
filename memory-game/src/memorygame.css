@@ -41,7 +41,7 @@ h1{
     object-fit: contain;
 }
 
-#choco-pic{
+#food-pic{
     width: 30px;
     height: 30px;
     display: flex;
@@ -55,12 +55,12 @@ h1{
     object-fit: contain;
 }
 
-.plant-theme{
+.plantcard{
     display: flex;
     justify-content: center;
 }
 
-.food-theme{
+.foodcard{
     display: flex;
     justify-content: center;
 }
