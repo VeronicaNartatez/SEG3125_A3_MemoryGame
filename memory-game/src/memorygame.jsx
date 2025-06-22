@@ -91,7 +91,47 @@ export default function MemoryGame(){
         const renderCard = flipped.includes(index) || matched.includes(index);
 
         return(
-            
+            <div className="body">
+      <div className="title-container"><h1>Memory Match-Up!</h1></div>
+
+      <div className="setting-title-box"><p>Game Settings:</p></div>
+
+      <div className="settings-box-container">
+        <div className="card">
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <button className="nav-link active" data-bs-toggle="tab">Difficulty</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link" data-bs-toggle="tab">Themes</button>
+            </li>
+          </ul>
+          <div className="tab-content">
+            <div className="diff-btn-container">
+              {Object.keys(difficulties).map(level => (
+                <button
+                  key={level}
+                  className={`btn-diff ${difficulty === level ? 'selected' : ''}`}
+                  onClick={() => setDifficulty(level)}
+                >
+                  {level.charAt(0).toUpperCase() + level.slice(1)}
+                </button>
+              ))}
+            </div>
+            <div className="theme-btn-container">
+              {Object.keys(themes).map(t => (
+                <button
+                  key={t}
+                  className={`btn-theme ${theme === t ? 'selected' : ''}`}
+                  onClick={() => setTheme(t)}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
             
         )
     }
