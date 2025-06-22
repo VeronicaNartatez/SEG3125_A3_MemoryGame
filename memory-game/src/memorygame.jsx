@@ -51,10 +51,6 @@ export default function MemoryGame() {
                                             {level.charAt(0).toUpperCase()+level.slice(1)}
                                         </button>
                                     ))}
-                                    
-                                    <button type="button" class="btn-diff" id='easy'>Easy</button>
-                                    <button type="button" class="btn-diff" id='medium'>Medium</button>
-                                    <button type="button" class="btn-diff" id='hard'>Hard</button>
                                 </div>
                             </div>
 
