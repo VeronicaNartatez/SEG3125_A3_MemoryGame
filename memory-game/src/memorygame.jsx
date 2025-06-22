@@ -30,7 +30,7 @@ export default function MemoryGame(){
     //will put html in here from main branch
 
     const [theme,setTheme]=useState('space');
-    const [difficulty,setDifficulty]=useState('easy')]
+    const [difficulty,setDifficulty]=useState('easy');
     const [cards,setCards]=useState([]);
     const [flipped,setFlipped]=useState([]);
     const [matched,setMatched]=useState([]);
