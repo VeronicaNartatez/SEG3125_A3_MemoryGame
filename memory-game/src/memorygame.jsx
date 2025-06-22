@@ -132,6 +132,21 @@ export default function MemoryGame(){
           </div>
         </div>
       </div>
+      
+      {/* Card grid */}
+      <div
+        className="card-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${difficulties[difficulty].cols}, 1fr)`,
+          gridTemplateRows: `repeat(${difficulties[difficulty].rows}, 1fr)`,
+          gap: '10px',
+          padding: '20px',
+        }}
+      >
+        {cards.map(renderCard)}
+      </div>
+    </div>
             
         )
     }
